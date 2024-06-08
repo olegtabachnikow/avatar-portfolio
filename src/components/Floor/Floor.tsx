@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import * as THREE from 'three';
-import vertexShader from '../../shaders/vertex';
-import fragmentShader from '../../shaders/fragment';
+import vertexShader from '../../shaders/floor/vertex';
+import fragmentShader from '../../shaders/floor/fragment';
 
 const texture = new THREE.TextureLoader().load('./textures/floor.webp');
 
