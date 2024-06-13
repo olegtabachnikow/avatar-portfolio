@@ -9,3 +9,6 @@ main {
 main {
   position: fixed;
 }
+.canvas {
+  touch-action: none;
+}
