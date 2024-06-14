@@ -5,16 +5,13 @@ import type { GLTFResult } from '@/types';
 
 const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations } = useGLTF(
-    '/avatarM.glb'
-  ) as GLTFResult;
+  const { nodes, materials, animations } = useGLTF('/avatar.glb') as GLTFResult;
   const { actions } = useAnimations<any>(animations, group);
 
   useEffect(() => {
     nodes.iPad.visible = false;
-    console.log(nodes.iPad);
     actions.Staying?.play();
-  }, [actions]);
+  }, [actions, nodes.iPad]);
 
   const takePhone = () => {
     actions.Staying?.fadeOut(0.2);
@@ -98,4 +95,4 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
 };
 
 export default Avatar;
-useGLTF.preload('/avatarM.glb');
+useGLTF.preload('/avatar.glb');
