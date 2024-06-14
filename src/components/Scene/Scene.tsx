@@ -1,26 +1,45 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { OrbitControls, Html, PresentationControls } from '@react-three/drei';
 import Avatar from '../Avatar/Avatar';
 import Floor from '../Floor/Floor';
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
 import ParticlesBackground from '../ParticlesBackground/ParticlesBackground';
+import useStore from '@/store/store';
 
 const Scene: FC = () => {
-  const [isMoved, setIsMoved] = useState<boolean>(false);
   const controlsRef = useRef<OrbitControlsType>(null);
+  const [isStarted, setIsStarted] = useStore((state) => [
+    state.isStarted,
+    state.setIsStarted,
+  ]);
+
+  useEffect(() => {
+    if (controlsRef.current)
+      controlsRef.current.object.position.set(0, 1.9, 1.25);
+  }, []);
 
   useFrame(() => {
     if (controlsRef.current) {
       controlsRef.current.object.position.lerp(
-        isMoved ? { x: 0, y: 2, z: 2.5 } : { x: 0, y: 2, z: 1.5 },
-        0.025
+        isStarted ? { x: 0, y: 2, z: 2.5 } : { x: 0, y: 1.9, z: 1.25 },
+        0.1
       );
       controlsRef.current.target.lerp(
-        isMoved ? { x: 0.5, y: 1.5, z: 0 } : { x: 0, y: 1.5, z: 0 },
-        0.025
+        isStarted ? { x: 0.5, y: 1.5, z: 0 } : { x: 0, y: 1.5, z: 0 },
+        0.1
       );
     }
+    // if (controlsRef.current) {
+    //   controlsRef.current.object.position.lerp(
+    //     isStarted ? { x: -0.05, y: 1.7, z: 0.3 } : { x: 0, y: 1.9, z: 1.25 },
+    //     0.1
+    //   );
+    //   controlsRef.current.target.lerp(
+    //     isStarted ? { x: -0.3, y: 1.3, z: 0.7 } : { x: 0, y: 1.5, z: 0 },
+    //     0.1
+    //   );
+    // }
   });
   return (
     <>
@@ -38,24 +57,15 @@ const Scene: FC = () => {
             transform: 'translate(300px, -200px)',
           }}
         >
-          {isMoved ? 'Active' : 'Inactive'}
-          <button onClick={() => setIsMoved((state) => !state)}>BTN</button>
+          {isStarted ? 'Active' : 'Inactive'}
+          <button onClick={() => setIsStarted(!isStarted)}>isStarted</button>
         </div>
       </Html>
       <ambientLight intensity={0.5} />
-      <directionalLight intensity={4.5} position={[0, 2, 3]} />
+      <directionalLight intensity={4.5} position={[-2, 2, 3]} />
       <ParticlesBackground />
-      <PresentationControls
-        polar={[-0.4, 0.2]}
-        azimuth={[-1, 0.75]}
-        config={{ mass: 2, tension: 400 }}
-        snap={{ mass: 4, tension: 400 }}
-      >
-        <group position={[-0.05, 0, 0]} rotation-y={Math.PI * -0.05}>
-          <Avatar />
-          {/* <Floor /> */}
-        </group>
-      </PresentationControls>
+      <Avatar />
+      {/* <Floor /> */}
     </>
   );
 };

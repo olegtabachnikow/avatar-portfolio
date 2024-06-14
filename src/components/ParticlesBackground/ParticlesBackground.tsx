@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import vertexShader from '../../shaders/particles/vertex.glsl';
 import fragmentShader from '../../shaders/particles/fragment.glsl';
 import type { ParticlesType } from '../../types';
+import useStore from '@/store/store';
 
 const initialParticles: ParticlesType = {
   geometry: new THREE.BufferGeometry(),
@@ -20,7 +21,10 @@ const initialParticles: ParticlesType = {
 let particles = initialParticles;
 
 const ParticlesBackground: FC = () => {
-  const [isMoved, setIsMoved] = useState<boolean>(true);
+  const [isStarted, setIsStarted] = useStore((state) => [
+    state.isStarted,
+    state.setIsStarted,
+  ]);
   const pointsRef = useRef<THREE.Points>(null);
   const { scene } = useGLTF('./modelsForParticles.glb');
   const sizes = {
@@ -117,7 +121,7 @@ const ParticlesBackground: FC = () => {
           gsap.fromTo(
             particles.material.uniforms.uProgress,
             { value: 0 },
-            { value: 1, duration: 3, ease: 'linear' }
+            { value: 1, duration: 3, ease: 'expo.out' }
           );
 
           // Save index
@@ -129,29 +133,16 @@ const ParticlesBackground: FC = () => {
 
   useEffect(() => {
     if (particles.morph) {
-      isMoved ? particles.morph(0) : particles.morph(1);
+      !isStarted ? particles.morph(0) : particles.morph(1);
     }
-  }, [isMoved]);
+  }, [isStarted]);
 
   return (
-    <>
-      <Html>
-        <div
-          style={{
-            color: '#fff',
-            transform: 'translate(300px, -200px)',
-          }}
-        >
-          {isMoved ? 'Active' : 'Inactive'}
-          <button onClick={() => setIsMoved((state) => !state)}>BTN</button>
-        </div>
-      </Html>
-      <points
-        ref={pointsRef}
-        geometry={particles.geometry}
-        material={particles.material}
-      />
-    </>
+    <points
+      ref={pointsRef}
+      geometry={particles.geometry}
+      material={particles.material}
+    />
   );
 };
 

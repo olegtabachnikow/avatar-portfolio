@@ -1,4 +1,5 @@
 'use client';
+import Overlay from '@/components/Overlay/Overlay';
 import Scene from '@/components/Scene/Scene';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
@@ -12,6 +13,7 @@ export default function Home() {
           <Scene />
         </Canvas>
       </Suspense>
+      <Overlay />
     </main>
   );
 }

@@ -1,21 +1,26 @@
 import * as THREE from 'three';
 import { FC, useRef, useEffect } from 'react';
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { useGLTF, useAnimations, Html } from '@react-three/drei';
 import type { GLTFResult } from '@/types';
+import useStore from '@/store/store';
+import { useFrame } from '@react-three/fiber';
 
 const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF('/avatar.glb') as GLTFResult;
   const { actions } = useAnimations<any>(animations, group);
+  const isStarted = useStore((state) => state.isStarted);
 
   useEffect(() => {
     nodes.iPad.visible = false;
-    actions.Staying?.play();
-  }, [actions, nodes.iPad]);
+  }, [nodes.iPad]);
+
+  useEffect(() => {
+    if (isStarted) actions.Staying?.play();
+  }, [actions, isStarted]);
 
   const takePhone = () => {
     actions.Staying?.fadeOut(0.2);
-    actions.Staying?.stop();
     actions.PickPhone?.setDuration(2).play();
     setTimeout(() => {
       nodes.iPad.visible = true;
