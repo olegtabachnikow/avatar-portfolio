@@ -13,7 +13,11 @@ const Scene: FC = () => {
   useFrame(() => {
     if (controlsRef.current) {
       controlsRef.current.object.position.lerp(
-        { x: 0, y: isMoved ? 2 : 2, z: isMoved ? 2.5 : 1.5 },
+        isMoved ? { x: 0, y: 2, z: 2.5 } : { x: 0, y: 2, z: 1.5 },
+        0.025
+      );
+      controlsRef.current.target.lerp(
+        isMoved ? { x: 0.5, y: 1.5, z: 0 } : { x: 0, y: 1.5, z: 0 },
         0.025
       );
     }

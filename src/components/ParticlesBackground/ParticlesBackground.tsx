@@ -23,7 +23,6 @@ const ParticlesBackground: FC = () => {
   const [isMoved, setIsMoved] = useState<boolean>(true);
   const pointsRef = useRef<THREE.Points>(null);
   const { scene } = useGLTF('./modelsForParticles.glb');
-  console.log(scene);
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -124,7 +123,6 @@ const ParticlesBackground: FC = () => {
           // Save index
           particles.index = index;
         };
-        console.log(particles);
       }),
     [scene, sizes.width, sizes.height, sizes.pixelRatio]
   );
