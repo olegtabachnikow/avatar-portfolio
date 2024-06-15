@@ -1,6 +1,6 @@
 import { FC, useRef, useMemo, useState, useEffect } from 'react';
 import * as THREE from 'three';
-import { Html, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import gsap from 'gsap';
 import vertexShader from '../../shaders/particles/vertex.glsl';
 import fragmentShader from '../../shaders/particles/fragment.glsl';
@@ -26,7 +26,7 @@ const ParticlesBackground: FC = () => {
     state.setIsStarted,
   ]);
   const pointsRef = useRef<THREE.Points>(null);
-  const { scene } = useGLTF('./modelsForParticles.glb');
+  const { scene } = useGLTF('./modelsForParticles1.glb');
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -133,7 +133,7 @@ const ParticlesBackground: FC = () => {
 
   useEffect(() => {
     if (particles.morph) {
-      !isStarted ? particles.morph(0) : particles.morph(1);
+      !isStarted ? particles.morph(1) : particles.morph(0);
     }
   }, [isStarted]);
 
@@ -148,4 +148,4 @@ const ParticlesBackground: FC = () => {
 
 export default ParticlesBackground;
 
-useGLTF.preload('./modelsForParticles.glb');
+useGLTF.preload('./modelsForParticles1.glb');

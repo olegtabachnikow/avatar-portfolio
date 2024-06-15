@@ -3,13 +3,15 @@ import { FC, useRef, useEffect } from 'react';
 import { useGLTF, useAnimations, Html } from '@react-three/drei';
 import type { GLTFResult } from '@/types';
 import useStore from '@/store/store';
-import { useFrame } from '@react-three/fiber';
 
 const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF('/avatar.glb') as GLTFResult;
   const { actions } = useAnimations<any>(animations, group);
-  const isStarted = useStore((state) => state.isStarted);
+  const [isStarted, setIsTabletMode] = useStore((state) => [
+    state.isStarted,
+    state.setIsTabletMode,
+  ]);
 
   useEffect(() => {
     nodes.iPad.visible = false;
@@ -26,6 +28,7 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
       nodes.iPad.visible = true;
     }, 700);
     setTimeout(function () {
+      setIsTabletMode(true);
       if (actions.PickPhone) actions.PickPhone.paused = true;
     }, 1900);
   };

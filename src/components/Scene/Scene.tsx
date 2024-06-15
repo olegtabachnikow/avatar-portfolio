@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { OrbitControls, Html, PresentationControls } from '@react-three/drei';
 import Avatar from '../Avatar/Avatar';
 import Floor from '../Floor/Floor';
+import Display from '../Display/Display';
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
 import ParticlesBackground from '../ParticlesBackground/ParticlesBackground';
@@ -9,9 +10,10 @@ import useStore from '@/store/store';
 
 const Scene: FC = () => {
   const controlsRef = useRef<OrbitControlsType>(null);
-  const [isStarted, setIsStarted] = useStore((state) => [
+  const [isStarted, setIsStarted, isTabletMode] = useStore((state) => [
     state.isStarted,
     state.setIsStarted,
+    state.isTabletMode,
   ]);
 
   useEffect(() => {
@@ -19,7 +21,17 @@ const Scene: FC = () => {
       controlsRef.current.object.position.set(0, 1.9, 1.25);
   }, []);
 
-  useFrame(() => {
+  const moveCameraTabletMode = () => {
+    if (controlsRef.current) {
+      controlsRef.current.object.position.lerp(
+        { x: -0.05, y: 1.7, z: 0.35 },
+        0.1
+      );
+      controlsRef.current.target.lerp({ x: -0.3, y: 1.3, z: 0.7 }, 0.1);
+    }
+  };
+
+  const moveCameraIntro = () => {
     if (controlsRef.current) {
       controlsRef.current.object.position.lerp(
         isStarted ? { x: 0, y: 2, z: 2.5 } : { x: 0, y: 1.9, z: 1.25 },
@@ -30,16 +42,11 @@ const Scene: FC = () => {
         0.1
       );
     }
-    // if (controlsRef.current) {
-    //   controlsRef.current.object.position.lerp(
-    //     isStarted ? { x: -0.05, y: 1.7, z: 0.3 } : { x: 0, y: 1.9, z: 1.25 },
-    //     0.1
-    //   );
-    //   controlsRef.current.target.lerp(
-    //     isStarted ? { x: -0.3, y: 1.3, z: 0.7 } : { x: 0, y: 1.5, z: 0 },
-    //     0.1
-    //   );
-    // }
+  };
+
+  useFrame(() => {
+    isTabletMode ? moveCameraTabletMode() : moveCameraIntro();
+    console.log(isTabletMode, isStarted);
   });
   return (
     <>
@@ -54,7 +61,7 @@ const Scene: FC = () => {
         <div
           style={{
             color: '#fff',
-            transform: 'translate(300px, -200px)',
+            transform: 'translate(150px, -100px)',
           }}
         >
           {isStarted ? 'Active' : 'Inactive'}
@@ -65,6 +72,7 @@ const Scene: FC = () => {
       <directionalLight intensity={4.5} position={[-2, 2, 3]} />
       <ParticlesBackground />
       <Avatar />
+      <Display />
       {/* <Floor /> */}
     </>
   );

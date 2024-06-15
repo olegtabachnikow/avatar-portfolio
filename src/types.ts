@@ -1,11 +1,6 @@
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
-export interface RootState {
-  isStarted: boolean;
-  setIsStarted: (isMoved: boolean) => void;
-}
-
 export interface ParticlesType {
   geometry: THREE.BufferGeometry;
   material: THREE.ShaderMaterial;

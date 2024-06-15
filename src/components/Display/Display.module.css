@@ -1,0 +1,10 @@
+.display {
+  background-color: black;
+}
+.display iframe {
+  width: 700px;
+  height: 920px;
+  border-radius: 40px;
+  border: none;
+  background-color: black;
+}
