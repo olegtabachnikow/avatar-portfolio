@@ -1,8 +1,19 @@
 import * as THREE from 'three';
 import { FC, useRef, useEffect } from 'react';
-import { useGLTF, useAnimations, Html } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
 import type { GLTFResult } from '@/types';
 import useStore from '@/store/store';
+
+const target = new THREE.Object3D();
+target.position.set(-1, 1.5, 2);
+const intersectionPoint = new THREE.Vector3();
+const planeNormal = new THREE.Vector3();
+const plane = new THREE.Plane();
+const mousePosition = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
+
+let head: THREE.Bone | null = null;
 
 const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null);
@@ -12,6 +23,24 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
     state.isStarted,
     state.setIsTabletMode,
   ]);
+  const { scene, camera } = useThree();
+
+  head = nodes?.Head;
+
+  const handleRaycaster = (event: MouseEvent) => {
+    mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    planeNormal.copy(camera.position).normalize();
+    plane.setFromNormalAndCoplanarPoint(planeNormal, scene.position);
+    raycaster.setFromCamera(mousePosition, camera);
+    raycaster.ray.intersectPlane(plane, intersectionPoint);
+    target.position.set(intersectionPoint.x, intersectionPoint.y, 2);
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleRaycaster);
+    return () => window.removeEventListener('mousemove', handleRaycaster);
+  }, []);
 
   useEffect(() => {
     nodes.iPad.visible = false;
@@ -32,6 +61,12 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
       if (actions.PickPhone) actions.PickPhone.paused = true;
     }, 1900);
   };
+
+  useFrame(() => {
+    if (head && !isStarted) {
+      head.lookAt(target.position);
+    }
+  });
 
   return (
     <group ref={group} {...props} dispose={null} onClick={takePhone}>

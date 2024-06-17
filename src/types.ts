@@ -22,6 +22,7 @@ export type GLTFResult = GLTF & {
     Body002_4: THREE.SkinnedMesh;
     Body002_5: THREE.SkinnedMesh;
     Body002_6: THREE.SkinnedMesh;
+    Head: THREE.Bone;
     Trinket: THREE.Mesh;
     Macbook002: THREE.Mesh;
     Macbook002_1: THREE.Mesh;

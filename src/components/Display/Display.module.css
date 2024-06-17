@@ -1,7 +1,7 @@
-.display {
+.iframe {
   background-color: black;
 }
-.display iframe {
+.iframe iframe {
   width: 700px;
   height: 920px;
   border-radius: 40px;

@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
+  z-index: 11;
 }
 .overlay {
   width: 300px;
@@ -17,4 +18,5 @@
   box-shadow: 0 0 0 9999px rgb(0, 0, 0);
   background-color: transparent;
   pointer-events: none;
+  cursor: pointer;
 }

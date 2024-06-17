@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import styles from './Overlay.module.css';
 import { useGSAP } from '@gsap/react';
@@ -14,6 +14,7 @@ const Overlay: FC = () => {
       duration: 1.5,
       ease: 'power1.out',
       width: 900,
+      x: '-30%',
       height: 900,
       autoAlpha: 0,
     });
@@ -25,6 +26,7 @@ const Overlay: FC = () => {
       ease: 'expo.inOut',
       width: 300,
       height: 300,
+      x: 0,
       autoAlpha: 1,
     });
   });
