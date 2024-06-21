@@ -34,7 +34,7 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
     plane.setFromNormalAndCoplanarPoint(planeNormal, scene.position);
     raycaster.setFromCamera(mousePosition, camera);
     raycaster.ray.intersectPlane(plane, intersectionPoint);
-    target.position.set(intersectionPoint.x, intersectionPoint.y, 2);
+    target.position.set(intersectionPoint.x, intersectionPoint.y, 10);
   };
 
   useEffect(() => {
@@ -74,60 +74,60 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
         <group name='Armature'>
           <group name='Body'>
             <skinnedMesh
-              name='Body002'
-              geometry={nodes.Body002.geometry}
-              material={materials['Body.002']}
-              skeleton={nodes.Body002.skeleton}
-              morphTargetDictionary={nodes.Body002.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002.morphTargetInfluences}
+              name='Body_1'
+              geometry={nodes.Body_1.geometry}
+              material={materials['Body.001']}
+              skeleton={nodes.Body_1.skeleton}
+              morphTargetDictionary={nodes.Body_1.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_1.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_1'
-              geometry={nodes.Body002_1.geometry}
-              material={materials['Outfit_Bottom.002']}
-              skeleton={nodes.Body002_1.skeleton}
-              morphTargetDictionary={nodes.Body002_1.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_1.morphTargetInfluences}
+              name='Body_2'
+              geometry={nodes.Body_2.geometry}
+              material={materials.Outfit_Bottom}
+              skeleton={nodes.Body_2.skeleton}
+              morphTargetDictionary={nodes.Body_2.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_2.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_2'
-              geometry={nodes.Body002_2.geometry}
-              material={materials['Outfit_Footwear.002']}
-              skeleton={nodes.Body002_2.skeleton}
-              morphTargetDictionary={nodes.Body002_2.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_2.morphTargetInfluences}
+              name='Body_3'
+              geometry={nodes.Body_3.geometry}
+              material={materials.Outfit_Footwear}
+              skeleton={nodes.Body_3.skeleton}
+              morphTargetDictionary={nodes.Body_3.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_3.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_3'
-              geometry={nodes.Body002_3.geometry}
-              material={materials['Outfit_Top.002']}
-              skeleton={nodes.Body002_3.skeleton}
-              morphTargetDictionary={nodes.Body002_3.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_3.morphTargetInfluences}
+              name='Body_4'
+              geometry={nodes.Body_4.geometry}
+              material={materials.Outfit_Top}
+              skeleton={nodes.Body_4.skeleton}
+              morphTargetDictionary={nodes.Body_4.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_4.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_4'
-              geometry={nodes.Body002_4.geometry}
-              material={materials['Skin.002']}
-              skeleton={nodes.Body002_4.skeleton}
-              morphTargetDictionary={nodes.Body002_4.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_4.morphTargetInfluences}
+              name='Body_5'
+              geometry={nodes.Body_5.geometry}
+              material={materials.Skin}
+              skeleton={nodes.Body_5.skeleton}
+              morphTargetDictionary={nodes.Body_5.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_5.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_5'
-              geometry={nodes.Body002_5.geometry}
-              material={materials['Eye.002']}
-              skeleton={nodes.Body002_5.skeleton}
-              morphTargetDictionary={nodes.Body002_5.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_5.morphTargetInfluences}
+              name='Body_6'
+              geometry={nodes.Body_6.geometry}
+              material={materials.Eye}
+              skeleton={nodes.Body_6.skeleton}
+              morphTargetDictionary={nodes.Body_6.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_6.morphTargetInfluences}
             />
             <skinnedMesh
-              name='Body002_6'
-              geometry={nodes.Body002_6.geometry}
-              material={materials['Hair.002']}
-              skeleton={nodes.Body002_6.skeleton}
-              morphTargetDictionary={nodes.Body002_6.morphTargetDictionary}
-              morphTargetInfluences={nodes.Body002_6.morphTargetInfluences}
+              name='Body_7'
+              geometry={nodes.Body_7.geometry}
+              material={materials.Hair}
+              skeleton={nodes.Body_7.skeleton}
+              morphTargetDictionary={nodes.Body_7.morphTargetDictionary}
+              morphTargetInfluences={nodes.Body_7.morphTargetInfluences}
             />
           </group>
           <primitive object={nodes.Hips} />

@@ -24,7 +24,7 @@ const Scene: FC = () => {
   const moveCameraTabletMode = () => {
     if (controlsRef.current) {
       controlsRef.current.object.position.lerp(
-        { x: -0.08, y: 1.7, z: 0.34 },
+        { x: -0.04, y: 1.7, z: 0.34 },
         0.1
       );
       controlsRef.current.target.lerp({ x: -0.3, y: 1.3, z: 0.7 }, 0.1);

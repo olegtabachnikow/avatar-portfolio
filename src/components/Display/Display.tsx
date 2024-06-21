@@ -27,9 +27,9 @@ const Display: FC = () => {
       distanceFactor={0.087}
       position={[-0.131, 1.567, 0.455]}
       rotation={[Math.PI * 0.25, Math.PI * 0.855, -Math.PI * 0.07]}
-      wrapperClass={`${classes.iframe} ${isTabletMode ? 'visible' : ''}`}
+      wrapperClass={classes.iframe}
     >
-      <iframe src='https://polyhaven.com/' />
+      <div className={classes.content} />
     </Html>
   );
 };
