@@ -19,10 +19,13 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF('/avatar.glb') as GLTFResult;
   const { actions } = useAnimations<any>(animations, group);
-  const [isStarted, setIsTabletMode] = useStore((state) => [
-    state.isStarted,
-    state.setIsTabletMode,
-  ]);
+  const [isStarted, setIsTabletMode, setIsParticlesMode3] = useStore(
+    (state) => [
+      state.isStarted,
+      state.setIsTabletMode,
+      state.setIsParticlesMode3,
+    ]
+  );
   const { scene, camera } = useThree();
 
   head = nodes?.Head;
@@ -44,7 +47,10 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
 
   useEffect(() => {
     nodes.iPad.visible = false;
-  }, [nodes.iPad]);
+    if (actions.Wave) actions.Wave.repetitions = 0;
+    actions.Wave?.fadeIn(0.2);
+    actions.Wave?.play();
+  }, [nodes.iPad, actions]);
 
   useEffect(() => {
     if (isStarted) actions.Staying?.play();
@@ -55,6 +61,7 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
     actions.PickPhone?.setDuration(2).play();
     setTimeout(() => {
       nodes.iPad.visible = true;
+      setIsParticlesMode3(true);
     }, 700);
     setTimeout(function () {
       setIsTabletMode(true);

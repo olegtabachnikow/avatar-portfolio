@@ -24,8 +24,8 @@ const Overlay: FC = () => {
     gsap.to(overlayRef.current, {
       duration: 1.5,
       ease: 'expo.inOut',
-      width: 300,
-      height: 300,
+      width: 400,
+      height: 400,
       x: 0,
       autoAlpha: 1,
     });

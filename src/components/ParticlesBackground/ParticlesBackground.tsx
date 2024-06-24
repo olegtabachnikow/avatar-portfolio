@@ -1,4 +1,4 @@
-import { FC, useRef, useMemo, useState, useEffect } from 'react';
+import { FC, useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import gsap from 'gsap';
@@ -6,6 +6,7 @@ import vertexShader from '../../shaders/particles/vertex.glsl';
 import fragmentShader from '../../shaders/particles/fragment.glsl';
 import type { ParticlesType } from '../../types';
 import useStore from '@/store/store';
+import { useFrame } from '@react-three/fiber';
 
 const initialParticles: ParticlesType = {
   geometry: new THREE.BufferGeometry(),
@@ -21,9 +22,9 @@ const initialParticles: ParticlesType = {
 let particles = initialParticles;
 
 const ParticlesBackground: FC = () => {
-  const [isStarted, setIsStarted] = useStore((state) => [
+  const [isStarted, isParticlesMode3] = useStore((state) => [
     state.isStarted,
-    state.setIsStarted,
+    state.isParticlesMode3,
   ]);
   const pointsRef = useRef<THREE.Points>(null);
   const { scene } = useGLTF('./modelsForParticles.glb');
@@ -121,7 +122,7 @@ const ParticlesBackground: FC = () => {
           gsap.fromTo(
             particles.material.uniforms.uProgress,
             { value: 0 },
-            { value: 1, duration: 3, ease: 'expo.out' }
+            { value: 1, duration: 2, ease: 'linear' }
           );
 
           // Save index
@@ -133,9 +134,17 @@ const ParticlesBackground: FC = () => {
 
   useEffect(() => {
     if (particles.morph) {
-      !isStarted ? particles.morph(0) : particles.morph(1);
+      !isStarted
+        ? particles.morph(0)
+        : !isParticlesMode3
+        ? particles.morph(1)
+        : particles.morph(2);
     }
-  }, [isStarted]);
+  }, [isStarted, isParticlesMode3]);
+
+  useFrame(() => {
+    isParticlesMode3 && pointsRef.current && pointsRef.current.rotateY(-0.001);
+  });
 
   return (
     <points

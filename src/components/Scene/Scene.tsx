@@ -1,5 +1,5 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { OrbitControls, Html, PresentationControls } from '@react-three/drei';
+import { FC, useEffect, useRef } from 'react';
+import { OrbitControls, Html } from '@react-three/drei';
 import Avatar from '../Avatar/Avatar';
 import Floor from '../Floor/Floor';
 import Display from '../Display/Display';
@@ -24,10 +24,10 @@ const Scene: FC = () => {
   const moveCameraTabletMode = () => {
     if (controlsRef.current) {
       controlsRef.current.object.position.lerp(
-        { x: -0.04, y: 1.7, z: 0.34 },
+        { x: -0.08, y: 1.71, z: 0.33 },
         0.1
       );
-      controlsRef.current.target.lerp({ x: -0.3, y: 1.3, z: 0.7 }, 0.1);
+      controlsRef.current.target.lerp({ x: -0.3, y: 1.2, z: 0.9 }, 0.1);
     }
   };
 
@@ -71,8 +71,8 @@ const Scene: FC = () => {
       <directionalLight intensity={4.5} position={[-2, 2, 3]} />
       <ParticlesBackground />
       <Avatar />
-      <Display />
-      {/* <Floor /> */}
+      {/* <Display /> */}
+      <Floor />
     </>
   );
 };

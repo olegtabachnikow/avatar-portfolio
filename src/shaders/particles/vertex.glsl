@@ -105,7 +105,7 @@ void main()
     gl_Position = projectedPosition;
 
     // Point size
-    gl_PointSize = aSize * uSize * uResolution.y * 0.5;
+    gl_PointSize = aSize * uSize * uResolution.y * 0.1;
     gl_PointSize *= (1.0 / - viewPosition.z);
 
     vColor = mix(uColorA, uColorB, noise);

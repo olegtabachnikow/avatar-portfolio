@@ -11,8 +11,8 @@
   z-index: 11;
 }
 .overlay {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   transform: translateY(-80px);
   border-radius: 50%;
   box-shadow: 0 0 0 9999px rgb(0, 0, 0);
