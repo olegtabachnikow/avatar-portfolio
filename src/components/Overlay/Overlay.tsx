@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import styles from './Overlay.module.css';
 import { useGSAP } from '@gsap/react';
 import useStore from '@/store/store';
+import IntroButton from '../IntroButton/IntroButton';
 
 const Overlay: FC = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -36,9 +37,12 @@ const Overlay: FC = () => {
   }, [isStarted]);
 
   return (
-    <div className={styles.container}>
-      <div ref={overlayRef} className={styles.overlay} />
-    </div>
+    <>
+      <div className={styles.container}>
+        <div ref={overlayRef} className={styles.overlay} />
+      </div>
+      <IntroButton />
+    </>
   );
 };
 

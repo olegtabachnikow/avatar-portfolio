@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import Avatar from '../Avatar/Avatar';
 import Floor from '../Floor/Floor';
 import Display from '../Display/Display';
@@ -56,17 +56,6 @@ const Scene: FC = () => {
         enableRotate={false}
         enableZoom={false}
       />
-      <Html position={[0, 1, 0]}>
-        <div
-          style={{
-            color: '#fff',
-            transform: 'translate(150px, -100px)',
-          }}
-        >
-          {isStarted ? 'Active' : 'Inactive'}
-          <button onClick={() => setIsStarted(!isStarted)}>isStarted</button>
-        </div>
-      </Html>
       <ambientLight intensity={0.5} />
       <directionalLight intensity={4.5} position={[-2, 2, 3]} />
       <ParticlesBackground />

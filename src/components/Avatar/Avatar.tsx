@@ -6,7 +6,8 @@ import type { GLTFResult } from '@/types';
 import useStore from '@/store/store';
 
 const target = new THREE.Object3D();
-target.position.set(-1, 1.5, 2);
+// target.position.set(-1, 1.5, 2);
+target.position.set(0, 1.8, 2);
 const intersectionPoint = new THREE.Vector3();
 const planeNormal = new THREE.Vector3();
 const plane = new THREE.Plane();
@@ -40,10 +41,10 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
     target.position.set(intersectionPoint.x, intersectionPoint.y, 10);
   };
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleRaycaster);
-    return () => window.removeEventListener('mousemove', handleRaycaster);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('mousemove', handleRaycaster);
+  //   return () => window.removeEventListener('mousemove', handleRaycaster);
+  // }, []);
 
   useEffect(() => {
     nodes.iPad.visible = false;
