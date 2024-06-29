@@ -41,16 +41,18 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
     target.position.set(intersectionPoint.x, intersectionPoint.y, 10);
   };
 
-  // useEffect(() => {
-  //   window.addEventListener('mousemove', handleRaycaster);
-  //   return () => window.removeEventListener('mousemove', handleRaycaster);
-  // }, []);
+  useEffect(() => {
+    window.addEventListener('mousemove', handleRaycaster);
+    return () => window.removeEventListener('mousemove', handleRaycaster);
+  }, []);
 
   useEffect(() => {
     nodes.iPad.visible = false;
     if (actions.Wave) actions.Wave.repetitions = 0;
-    actions.Wave?.fadeIn(0.2);
-    actions.Wave?.play();
+    actions.Wave?.fadeIn(0.1);
+    setTimeout(() => {
+      actions.Wave?.play();
+    }, 2000);
   }, [nodes.iPad, actions]);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   }, [actions, isStarted]);
 
   const takePhone = () => {
-    actions.Staying?.fadeOut(0.2);
+    actions.Staying?.fadeIn(0.2).fadeOut(0.2);
     actions.PickPhone?.setDuration(2).play();
     setTimeout(() => {
       nodes.iPad.visible = true;
@@ -71,9 +73,9 @@ const Avatar: FC = (props: JSX.IntrinsicElements['group']) => {
   };
 
   useFrame(() => {
-    if (head && !isStarted) {
-      head.lookAt(target.position);
-    }
+    // if (head && !isStarted) {
+    head && head.lookAt(target.position);
+    // }
   });
 
   return (

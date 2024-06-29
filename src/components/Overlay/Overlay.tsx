@@ -13,7 +13,7 @@ const Overlay: FC = () => {
   const handleStart = contextSafe(() => {
     gsap.to(overlayRef.current, {
       duration: 1.5,
-      ease: 'power1.out',
+      ease: 'expo.inOut',
       width: 900,
       x: '-30%',
       height: 900,
